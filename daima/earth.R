@@ -42,4 +42,4 @@ final_model <- earth(
     degree = tune_result$best_params$degree,
     Scale.y = FALSE
 )
-predictions <- predict(final_model, test_data1)
+predictions <- predict(final_model, test_data)
