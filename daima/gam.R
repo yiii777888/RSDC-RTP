@@ -1,10 +1,4 @@
-library(caret) 
-library(mgcv)
-
-set.seed(123)  
-train_index <- createDataPartition(train_data1$X, p = 0.7, list = FALSE)
-new_train <- train_data1[train_index, ]  new_test <- train_data1[-train_index, ]  
-tune_gam <- function(train_data, 
+ tune_gam <- function(train_data, 
                      smooth_range = c(TRUE, FALSE),
                      k_range = 5:10) {
     
@@ -44,9 +38,9 @@ final_model <- gam(
     data = new_train,
     select = tune_result$best_params$select
 )
-final_model <- gam(
-    X ~ s(Y_adj12, k = tune_result$best_params$k),
+final_model <- gam(a
+    X ~ s(Y, k = tune_result$best_params$k),
     data = new_train,
     select = tune_result$best_params$select
 )
-test_predictions <- predict(final_model, test_data13)
+test_predictions <- predict(final_model, test_data)
