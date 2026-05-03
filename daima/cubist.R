@@ -1,9 +1,4 @@
-require(Cubist, quietly = TRUE)    
-
-train_x <- data.frame(Y = train_data1$Y)
-train_y <- train_data1$X
-test_x <- data.frame(Y = test_data1$Y)
-test_y <- test_data1$X
+  
 results <- list()
 for (committees in committees_values) {
     for (neighbors in neighbors_values) {
@@ -15,7 +10,7 @@ for (committees in committees_values) {
                                newdata = test_x,
                                neighbors = neighbors)
         
-        # 跳过常数预测
+  
         if (sd(predictions) == 0) {
             warning(paste("常数预测: committees =", committees,
                           "neighbors =", neighbors))
