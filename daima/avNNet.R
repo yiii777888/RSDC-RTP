@@ -6,10 +6,10 @@ ctrl <- trainControl(
     returnResamp = "all" 
 )
 
-set.seed(123)
+
 avNNet_model <- caret::train(
-    X ~ Y_adj7,                
-    data = train_data1,  
+    X ~ Y,                
+    data = train_data,  
     method = "avNNet",    
     linout = TRUE,        
     repeats = 5,          
@@ -19,4 +19,4 @@ avNNet_model <- caret::train(
     tuneGrid = param_grid,
     metric = "RMSE"       
 )
-predictions <- predict(avNNet_model, newdata = test_data1)
+predictions <- predict(avNNet_model, newdata = test_data)
