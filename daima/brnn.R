@@ -1,5 +1,3 @@
-library(brnn)
-set.seed(123)  # 确保可重复性
 find_best_neurons <- function(data, response_var = "X", max_neurons = 10) {
     best_neurons <- 1
     best_rmse <- Inf    
@@ -15,7 +13,7 @@ find_best_neurons <- function(data, response_var = "X", max_neurons = 10) {
             train_idx <- which(folds != fold)
             valid_idx <- which(folds == fold)            
             model <- tryCatch({
-                brnn(as.formula(paste(response_var, "~ Y_adj6")),
+                brnn(as.formula(paste(response_var, "~ Y")),
                      data = data[train_idx, ],
                      normalize = TRUE,  
                      neurons = neurons,
@@ -43,15 +41,15 @@ find_best_neurons <- function(data, response_var = "X", max_neurons = 10) {
     cat("\n最佳神经元数:", best_neurons, "| 最佳CV RMSE:", best_rmse, "\n")
     return(best_neurons)
 }
-optimal_neurons <- find_best_neurons(train_data1, "X", max_neurons = 10)
-set.seed(123)  # 确保可重复性
-brnn_model <- brnn(X ~ Y_adj6,
-                   data = train_data1,
-                   normalize = TRUE,  # 推荐标准化输入
+optimal_neurons <- find_best_neurons(train_data, "X", max_neurons = 10)
+
+brnn_model <- brnn(X ~ Y,
+                   data = train_data,
+                   normalize = TRUE,
                    neurons = optimal_neurons,
                    verbose = TRUE,
-                   mu = 0.01,       # 正则化参数
+                   mu = 0.01,      
                    mu_dec = 0.1,
                    mu_inc = 10,
                    mu_max = 1e10)
-predictions <- predict(brnn_model, test_data1)
+predictions <- predict(brnn_model, test_data)
