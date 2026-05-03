@@ -1,6 +1,4 @@
-library(stats)
-set.seed(123)  
-poly_reg <- function(x, y, degree) {
+ poly_reg <- function(x, y, degree) {
     model <- lm(y ~ poly(x, degree, raw = TRUE))
     return(model)
 }
@@ -9,7 +7,7 @@ find_best_degree <- function(x, y, max_degree = 5) {
     best_rmse <- Inf    
     
     degree_seq <- seq(0.5, max_degree, by = 0.5)    
-    # 5折交叉验证
+
     folds <- sample(rep(1:5, length.out = length(x)))     
     for(degree in degree_seq) {
         cv_errors <- numeric(5)        
