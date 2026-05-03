@@ -1,5 +1,3 @@
-library(caret)
-library(earth) 
 tune_mars <- function(train_data, 
                       nprune_range = 2:10,     
                       degree_range = 1:3) {       
@@ -13,7 +11,7 @@ tune_mars <- function(train_data,
                 train_idx <- unlist(folds[-i])
                 val_idx <- folds[[i]]                
                 mars_model <- earth(
-                    X ~ Y_adj6,  
+                    X ~ Y,  
                     data = train_data[train_idx, ],
                     nprune = nprune,
                     degree = degree,
@@ -38,8 +36,8 @@ tune_mars <- function(train_data,
 }
  
 final_model <- earth(
-    X ~ Y_adj6,  
-    data = train_data1,
+    X ~ Y,  
+    data = train_data,
     nprune = tune_result$best_params$nprune,
     degree = tune_result$best_params$degree,
     Scale.y = FALSE
