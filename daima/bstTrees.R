@@ -1,32 +1,21 @@
-library(bst)        
-library(caret)      
-library(doParallel) 
-
-train_x <- as.matrix(train_data1["Y"]) 
-train_y <- train_data1$X 
-test_x <- as.matrix(test_data1["Y"])
-test_y <- test_data1$X
-
 cl <- makePSOCKcluster(detectCores() - 1)
 registerDoParallel(cl)
 
-
-# 4. 参数调优
 best_params <- NULL
 best_rmse <- Inf
 cv_folds <- 5
 
 for(i in 1:nrow(param_grid)) {
-    set.seed(123) 
+ 
     cv_rmse <- numeric(cv_folds)
     folds <- createFolds(train_y, k = cv_folds)    
     
     for (fold in 1:cv_folds) {
         train_idx <- unlist(folds[-fold])
         valid_idx <- folds[[fold]]        
-        train_fold_x <- as.matrix(train_data1[train_idx, "Y", drop = FALSE])
+        train_fold_x <- as.matrix(train_data[train_idx, "Y", drop = FALSE])
         train_fold_y <- train_data1[train_idx, "X"]
-        valid_fold_x <- as.matrix(train_data1[valid_idx, "Y", drop = FALSE])
+        valid_fold_x <- as.matrix(train_data[valid_idx, "Y", drop = FALSE])
         valid_fold_y <- train_data1[valid_idx, "X"]
         
         model <- bst(
