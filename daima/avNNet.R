@@ -6,9 +6,6 @@ avNNet_model <- caret::train(
     linout = TRUE,        
     repeats = 5,          
     trace = FALSE,        
-    MaxNWts = 5000,       
-    trControl = ctrl,     
-    tuneGrid = param_grid,
-    metric = "RMSE"       
-)
+    MaxNWts = 5000,            
+    tuneGrid = param_grid)
 predictions <- predict(avNNet_model, newdata = test_data)
