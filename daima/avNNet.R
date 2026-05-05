@@ -1,14 +1,6 @@
 
-ctrl <- trainControl(
-    method = "cv",       
-    number = 5,           
-    verboseIter = TRUE,   
-    returnResamp = "all" 
-)
-
-
 avNNet_model <- caret::train(
-    X ~ Y,                
+    Y ~ X,                
     data = train_data,  
     method = "avNNet",    
     linout = TRUE,        
