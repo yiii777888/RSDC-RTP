@@ -1,6 +1,6 @@
 
 final_model <- gam(a
-    X ~ s(Y, k = val_par2),
+    Y ~ s(X, k = val_par2),
     data = new_train,
     select = val_par1
 )
