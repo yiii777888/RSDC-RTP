@@ -1,7 +1,7 @@
 
 
 nnet.model <- train(
-    X ~ Y,              
+    Y ~ X,              
     data = train_data,
     method = "nnet",    
     tuneGrid = tuneGrid,
